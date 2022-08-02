@@ -30,11 +30,13 @@ console.log('example task:', processFirstItem(['foo','bar'],function(str){return
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
-  
+    Since counter1 has a function nested within a function, and the outer function returns the inner function, the inner function may be called in the global scope without being invoked.
   2. Which of the two uses a closure? How can you tell?
-  
+    Technically both, since both examples have inner functions that reference external variables. Both reference count in the lexical scope.
   3. In what scenario would the counter1 code be preferable? In what scenario would 
-     counter2 be better?  
+     counter2 be better?
+    counter1 would be more beneficial if you have need for a function to access a private variable. This can be declared and remembered in the parent variable when the inner function is invoked.
+    counter2 would be more beneficial if a private variable is unnecessary since the code is simpler.
 */
 
 // counter1 code
@@ -54,7 +56,6 @@ function counter2() {
   return count++;
 }
 
-
 /* ⚾️⚾️⚾️ Task 2: inning() ⚾️⚾️⚾️
 Use the inning function below to do the following:
   1. Return a random whole number of points between 0 and 2 scored by one team in an inning
@@ -64,10 +65,11 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-function inning(/*Code Here*/){
-    /*Code Here*/
+function inning(){
+    return Math.floor(Math.random() * 3);
 }
 
+console.log(inning());
 
 /* ⚾️⚾️⚾️ Task 3: finalScore() ⚾️⚾️⚾️
 Use the finalScore function below to do the following:
@@ -83,10 +85,19 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(/*Code Here*/){
-  /*Code Here*/
+function finalScore(callback, innings){
+  const scoreObj = {
+    Home: 0,
+    Away: 0
+  };
+  for(let i = 0; i < innings; i++) {
+    scoreObj.Home += callback();
+    scoreObj.Away += callback();
+  }
+  return scoreObj;
 }
 
+console.log(finalScore(inning, 9));
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
 Use the getInningScore() function below to do the following:
@@ -101,11 +112,18 @@ For example: invoking getInningScore(inning) might return this object:
   */
 
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
+function getInningScore(callback) {
+  const scoreObj = {
+    Home: 0,
+    Away: 0
+  };
+  scoreObj.Home = callback();
+  scoreObj.Away = callback();
+  return scoreObj;
 
 }
 
+console.log(getInningScore(inning));
 
 /* STRETCH: ⚾️⚾️⚾️ Task 5: scoreboard() ⚾️⚾️⚾️
 Use the scoreboard function below to do the following:
@@ -147,11 +165,15 @@ Use the scoreboard function below to do the following:
   "This game will require extra innings: Away 10 - Home 10"
 ] */
 // NOTE: There is no test associated with this code; if your output matches the given example, consider it complete!
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(scoreCallback, inningCallback, innings) {
+  const inningsArr = [];
+  for(let i = 0; i < innings; i++) {
+    inningsArr.push(`Inning ${i + 1}: Away ${scoreCallback(inningCallback())} - Home ${scoreCallback(inningCallback())}`);
+  }
+  return inningsArr;
 }
 
-
+console.log(scoreboard(getInningScore, inning, 9));
 
 
 /* 🛑🛑🛑🛑🛑 Please do not modify anything below this line 🛑🛑🛑🛑🛑 */

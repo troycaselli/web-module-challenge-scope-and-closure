@@ -61,6 +61,7 @@ You will be running your tests in one terminal and debugging in the other. As yo
 Edit the `ReadMe` file with your answers to the questions below.
 
 1. In your own words, define closure (1-2 sentences).
+  Closures are nested functions that have access to and reference external variables.
 2. Study the following code, then answer the questions below.
 
 ```js
@@ -82,8 +83,11 @@ dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
+  Closure is seen in the function() on line 69 because it console.logs 'name' which is an external variable.
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
+  The 'name' will always return 'Dan', but the newRoll may return a different number.
 c. What is the lexical scope of `newRoll`? 
+  newRoll may be accessed and referenced only within the function(){}; outside of the {} is beyond the lexical scope of the variable. 
 
 
 ### Task 3 - Stretch Goals
