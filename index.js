@@ -85,14 +85,14 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(callback, innings){
+function finalScore(inningCB, innings){
   const scoreObj = {
     Home: 0,
     Away: 0
   };
   for(let i = 0; i < innings; i++) {
-    scoreObj.Home += callback();
-    scoreObj.Away += callback();
+    scoreObj.Home += inningCB();
+    scoreObj.Away += inningCB();
   }
   return scoreObj;
 }
@@ -112,13 +112,13 @@ For example: invoking getInningScore(inning) might return this object:
   */
 
 
-function getInningScore(callback) {
+function getInningScore(inningCB) {
   const scoreObj = {
     Home: 0,
     Away: 0
   };
-  scoreObj.Home += callback();
-  scoreObj.Away += callback();
+  scoreObj.Home += inningCB();
+  scoreObj.Away += inningCB();
   return scoreObj;
 
 }
@@ -170,10 +170,10 @@ const scoreObj = {
   Home: 0
 };
 
-function scoreboard(scoreCallback, inningCallback, innings) {
+function scoreboard(inningScoreCB, inningCB, innings) {
   const inningsArr = [];
   for(let i = 0; i < innings; i++) {
-    const scores = scoreCallback(inningCallback);
+    const scores = inningScoreCB(inningCB);
     inningsArr.push(`Inning ${i + 1}: Away ${scores.Away} - Home ${scores.Home}`);
     scoreObj.Away += scores.Away;
     scoreObj.Home += scores.Home;
