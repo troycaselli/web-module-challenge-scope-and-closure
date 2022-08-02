@@ -117,8 +117,8 @@ function getInningScore(callback) {
     Home: 0,
     Away: 0
   };
-  scoreObj.Home = callback();
-  scoreObj.Away = callback();
+  scoreObj.Home += callback();
+  scoreObj.Away += callback();
   return scoreObj;
 
 }
@@ -165,15 +165,30 @@ Use the scoreboard function below to do the following:
   "This game will require extra innings: Away 10 - Home 10"
 ] */
 // NOTE: There is no test associated with this code; if your output matches the given example, consider it complete!
+const scoreObj = {
+  Away: 0,
+  Home: 0
+};
+
 function scoreboard(scoreCallback, inningCallback, innings) {
   const inningsArr = [];
   for(let i = 0; i < innings; i++) {
-    inningsArr.push(`Inning ${i + 1}: Away ${scoreCallback(inningCallback())} - Home ${scoreCallback(inningCallback())}`);
+    const scores = scoreCallback(inningCallback);
+    inningsArr.push(`Inning ${i + 1}: Away ${scores.Away} - Home ${scores.Home}`);
+    scoreObj.Away += scores.Away;
+    scoreObj.Home += scores.Home;
   }
   return inningsArr;
 }
+let array = scoreboard(getInningScore, inning, 9);
 
-console.log(scoreboard(getInningScore, inning, 9));
+if(scoreObj.Away !== scoreObj.Home) {
+  array.push(`Final Score: Away ${scoreObj.Away} - Home ${scoreObj.Home}`);
+} else {
+  array.push(`This game will require extra innings: Away ${scoreObj.Away} - Home ${scoreObj.Home}`);
+}
+console.log(array);
+console.log(scoreObj);
 
 
 /* 🛑🛑🛑🛑🛑 Please do not modify anything below this line 🛑🛑🛑🛑🛑 */
